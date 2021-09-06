@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="JKang.EventSourcing" Version="1.1.2" />
+    <PackageReference Include="JKang.EventSourcing.Persistence.EfCore" Version="1.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Alza.Product.Domain\Alza.Product.Domain.csproj" />
+    <ProjectReference Include="..\Alza.Product.ReadModel\Alza.Product.ReadModel.csproj" />
+  </ItemGroup>
+
+</Project>
