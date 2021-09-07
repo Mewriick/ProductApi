@@ -49,7 +49,7 @@ namespace Alza.Product.Api.Controllers
         /// <param name="productId">Product unique identifier</param>
         /// <returns>Single product</returns>
         /// <response code="200">Returns the product</response>
-        /// <response code="204">Returns the product if not exists in system</response>
+        /// <response code="204">Returns if product not exists in system</response>
         [HttpGet("Product/{productId}")]
         [ProducesResponseType(typeof(ProductDto), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status204NoContent)]
@@ -102,7 +102,6 @@ namespace Alza.Product.Api.Controllers
             {
                 if (patchResutl.Error.Code == ValidationErrorCodes.NotFound)
                     return UnprocessableEntity();
-
 
                 return Problem(patchResutl.Error.Code, statusCode: StatusCodes.Status500InternalServerError);
             }
