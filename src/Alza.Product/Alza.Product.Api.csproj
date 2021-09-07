@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="CSharpFunctionalExtensions" Version="2.20.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
@@ -18,10 +19,6 @@
     <ProjectReference Include="..\Alza.Product.Application\Alza.Product.Application.csproj" />
     <ProjectReference Include="..\Alza.Product.Domain\Alza.Product.Domain.csproj" />
     <ProjectReference Include="..\Alza.Product.Infrastructure\Alza.Product.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\V2\" />
   </ItemGroup>
 
 </Project>

@@ -1,4 +1,5 @@
-﻿using Alza.Product.Application.Dtos;
+﻿using Alza.Product.Application;
+using Alza.Product.Application.Dtos;
 using Alza.Product.Application.Patch;
 using Alza.Product.Application.Requests;
 using MediatR;
@@ -68,10 +69,44 @@ namespace Alza.Product.Api.Controllers
             }
         }
 
+        /// <summary>
+        /// Endpoint which support partially update product
+        /// </summary>
+        /// <remarks>
+        /// Sample request:
+        ///
+        ///     /Patch/Product/379CE2B5-6DC2-410C-BB18-51CA84E57162
+        ///     {
+        ///        "Description": "Test Desc"
+        ///     }
+        ///
+        /// </remarks>
+        /// <param name="productId">Product unique identifier</param>
+        /// <param name="patchDocument">Json which define properties for update and their new values</param>
+        /// <returns></returns>
+        /// <response code="200">Product successfully updated</response>
+        /// <response code="422">Product does not exists</response>
+        /// <response code="500">Not expected error while processing update</response>
         [HttpPatch]
         [Route("Patch/Product/{productId}")]
-        public async Task<IActionResult> Patch(Guid productId, [FromBody] JsonMergePatch<ProductDto> request)
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status422UnprocessableEntity)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status500InternalServerError)]
+        public async Task<IActionResult> Patch(Guid productId, [FromBody] JsonMergePatch<ProductDto> patchDocument)
         {
+            var patchResutl = await mediator.Send(
+                new PatchProduct(productId, patchDocument),
+                HttpContext.RequestAborted);
+
+            if (patchResutl.IsFailure)
+            {
+                if (patchResutl.Error.Code == ValidationErrorCodes.NotFound)
+                    return UnprocessableEntity();
+
+
+                return Problem(patchResutl.Error.Code, statusCode: StatusCodes.Status500InternalServerError);
+            }
+
             return Ok();
         }
     }
