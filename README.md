@@ -1,8 +1,8 @@
 # ProductApi
 CRUD application for manage products 
 # Prerequisites to run
-   Visual Studio 2019
-  .NET 5
+Visual Studio 2019  
+.NET 5
   
 # How to Run Api
 Open solution and just pres F5. Or go to the folder src\Alza.Product and run command **dotnet run** and open browser 
